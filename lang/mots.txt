@@ -1,0 +1,30 @@
+Se Déconnecté
+Liste des classes
+Liste des classes
+Ajouter une nouvelle classe
+Statut
+Créé par
+Nom de la classe
+Nouvelle classe créé !
+nom
+Filtre
+Réénitialiser
+Modifé une nouvelle classe
+Modifier
+Modification reussie
+Sujets
+Sujet
+Liste des sujets
+Type
+Creer un sujet
+Creer un nouveau sujet
+Nom du sujet
+Selectionne un type
+Pratique
+Theorique
+Nouveau sujet créé !
+Modifé un sujet
+Assigner un sujet
+Liste des sujets assigné
+sélectionnée un sujet
+Sujets assigné !

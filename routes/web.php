@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
+Route::fallback(function () {
+    return view('errors.404');
 });
+
+require __DIR__.'/auth.php';
+
+Route::get('/', function () {
+    return to_route('login');
+});
+
+
+// Route::group(["middelware" => "auth"], function () {
+//     Route::get('/', function () {
+//         return view('layouts.app');
+//     });
+// });
