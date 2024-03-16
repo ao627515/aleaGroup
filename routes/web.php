@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +26,7 @@ Route::get('/', function () {
 });
 
 
-// Route::group(["middelware" => "auth"], function () {
-//     Route::get('/', function () {
-//         return view('layouts.app');
-//     });
-// });
+Route::group(["middleware" => "auth"], function () {
+    Route::resource('user', UserController::class);
+    Route::resource('event', EventController::class);
+});

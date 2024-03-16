@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>aléaGroup | Connecte toi et commence ta session</title>
+    <title>aléaGroup | Connecte-toi, c'est parti !</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,30 +25,44 @@
                 <a href="#" class="h1"><b>aléa</b>Group</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Connecte toi et commence ta session</p>
+                <p class="login-box-msg">Connecte-toi, c'est parti !</p>
 
-                <form action="{{ route('login') }}" method="post">
+                <form action="{{ route('login') }}" method="post" id="login">
                     @csrf
-                    <div class="input-group mb-3">
-                        <input type="text" name="phone" class="form-control" placeholder="Téléphone">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-phone"></span>
+                    <div class="mb-3">
+                        <div class="input-group mb-1">
+                            <input type="text" name="phone" class="form-control" placeholder="Téléphone">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Mot de passe">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                        @error('phone')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
                             </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group mb-1">
+                            <input type="password" name="password" class="form-control" placeholder="Mot de passe">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                            @error('password')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
+                                <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">
                                     Se souvenir de moi
                                 </label>
@@ -60,7 +74,7 @@
                 </form>
 
                 <div class="social-auth-links text-center mt-2 mb-3">
-                    <button type="submit" form="login" class="btn btn-primary btn-block">Sign In</button>
+                    <button type="submit" form="login" class="btn btn-primary btn-block">Connexion</button>
                 </div>
                 <!-- /.social-auth-links -->
 
