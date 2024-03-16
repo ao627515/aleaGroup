@@ -13,7 +13,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('events.index');
+        $data['page_title'] = 'Lstes des évènements';
+        $data['header_title'] = 'Listes des évènements';
+
+        return view('events.index', $data);
     }
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ParticipantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,5 @@ Route::get('/', function () {
 Route::group(["middleware" => "auth"], function () {
     Route::resource('user', UserController::class);
     Route::resource('event', EventController::class);
+    Route::resource('participant', ParticipantController::class);
 });
