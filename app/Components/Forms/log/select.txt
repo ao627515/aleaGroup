@@ -1,0 +1,13 @@
+Probleme 1 :
+inpossible de passé une option par defaut
+de choissir volontairement quelle élément est selectionne
+impossible de choissir le type de value ($key ou $option)
+Solution:
+    tout ce qui est cité plus est possible
+-----------------------------------------------------------------------------------------------------------
+modif futur
+mettre par defaut le value by option
+permetttre le controlle de desabled et selected de l'option par defaut
+empecher le selected du default si un autre la deja
+------------------------------------------------------------------------------------------------------------
+01/02/2024 : tout ce qui est cité plus est possible

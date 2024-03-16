@@ -1,0 +1,7 @@
+Probleme 1 : inpossible de passé un attribut value
+solution : ajout d'une varible membre $value + changement de la logique de value
+code ajouter :
+public $value;
+$this->value = $value ?: $all['value'] ?? '';
+request()->input($attr['name'], old($attr['name'], $value))
+-----------------------------------------------------------------------------------------------------------
