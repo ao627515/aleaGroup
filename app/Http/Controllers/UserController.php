@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -12,7 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $data['page_title'] = 'Lstes des évènements';
+        $data['header_title'] = 'Listes des évènements';
+
+        return view('users.index', $data);
     }
 
     /**
@@ -36,7 +41,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $data['page_title'] = 'Lstes des évènements';
+        $data['header_title'] = '';
+        $data['user'] = $user;
+
+        return view('users.show', $data);
     }
 
     /**
@@ -52,7 +61,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // dd($request);
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required' , 'numeric', 'string', Rule::unique('users', 'phone')->ignore($user->id, 'id')],
+            'role' => ['required', 'string', 'in:user,admin']
+        ]);
+
+
+        $user->update($data);
+
+        return to_route('user.show', $user)->with('success', 'Modification reussie !');
     }
 
     /**

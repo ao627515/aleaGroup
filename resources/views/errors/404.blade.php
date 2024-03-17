@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@php
+        $data['page_title'] = '404';
+        $data['header_title'] = '404';
+@endphp
+
 @section('content')
     <div class="error-page">
         <h2 class="headline text-warning"> 404</h2>

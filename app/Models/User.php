@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'phone',
         'password',
+        'role'
     ];
 
     /**
@@ -42,4 +43,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getName(){
+        return ucwords($this->name);
+    }
+
+    public function getPhone(){
+        return  implode(' ', str_split($this->phone, 2));
+    }
+
+    public function getRole(){
+        return $this->role == 'admin' ? 'Administrateur' : 'Utilisateur';
+    }
 }

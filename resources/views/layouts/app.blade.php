@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('meta')
 
-    <title>{{ $page_title }}</title>
+    {{-- <title>{{ $page_title }}</title> --}}
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -31,6 +31,9 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <div class="px-5 mt-3">
+                <x-msg-alert/>
+            </div>
             <!-- Content Header (Page header) -->
             {{-- @include('includes.content_header') --}}
 
