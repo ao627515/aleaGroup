@@ -10,7 +10,7 @@
     <ul class="navbar-nav m-auto">
         <!-- Navbar Search -->
         <li class="nav-item">
-                {{-- {{ $header_title }} --}}
+                {{ $header_title ?? '' }}
         </li>
     </ul>
 </nav>

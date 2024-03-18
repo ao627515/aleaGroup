@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('meta')
 
-    {{-- <title>{{ $page_title }}</title> --}}
+    <title>{{ $page_title ?? '' }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
