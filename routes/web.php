@@ -31,5 +31,5 @@ Route::group(["middleware" => "auth"], function () {
     Route::resource('user', UserController::class)->except(['index', 'create', 'store', 'edit']);
     Route::delete('destroy-account', [UserController::class, 'destroyAccount'])->name('user.destroyAccount');
     Route::resource('event', EventController::class);
-    Route::resource('participant', ParticipantController::class);
+    Route::resource('participant', ParticipantController::class)->except(['create', 'edit']);
 });

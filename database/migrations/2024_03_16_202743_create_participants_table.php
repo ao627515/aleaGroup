@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 255);
+            $table->foreignId('user_id');
+            $table->foreign('user_id', 'fk_participants_user')
+            ->references('id')->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

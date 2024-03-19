@@ -50,6 +50,22 @@
     </div>
     <!-- ./wrapper -->
 
+    {{-- modal --}}
+    <x-modal id="logout_user" title="Demande de confirmation">
+        <x-slot name="body">
+            Voullez-vous vous déconnectée ?
+        </x-slot>
+        <x-slot name="footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button class="btn btn-danger btn-block btn-primary confirmModal">
+                    Oui
+                </button>
+            </form>
+        </x-slot>
+    </x-modal>
+
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
@@ -57,6 +73,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
     <!-- js custom -->
+    <script src="{{ asset('dist/js/modalScript.js') }}"></script>
     @yield('scripts')
 </body>
 

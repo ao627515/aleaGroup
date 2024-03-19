@@ -11,5 +11,10 @@ $(function() {
             // Soumettre le formulaire
             form.submit();
         });
+
+        $('.confirmModal').on('click', function() {
+            // Soumettre le formulaire
+            form.submit();
+        });
     });
 });

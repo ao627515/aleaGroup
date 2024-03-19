@@ -13,7 +13,7 @@ class ParticipantPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return auth()->user()->id === $user->id;
     }
 
     /**
@@ -21,7 +21,7 @@ class ParticipantPolicy
      */
     public function view(User $user, Participant $participant): bool
     {
-        //
+        return $user->id === $participant->user_id;
     }
 
     /**
@@ -29,7 +29,7 @@ class ParticipantPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class ParticipantPolicy
      */
     public function update(User $user, Participant $participant): bool
     {
-        //
+        return $user->id === $participant->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class ParticipantPolicy
      */
     public function delete(User $user, Participant $participant): bool
     {
-        //
+        return $user->id === $participant->user_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class ParticipantPolicy
      */
     public function restore(User $user, Participant $participant): bool
     {
-        //
+        return $user->id === $participant->user_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class ParticipantPolicy
      */
     public function forceDelete(User $user, Participant $participant): bool
     {
-        //
+        return $user->id === $participant->user_id;
     }
 }

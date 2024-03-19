@@ -23,21 +23,20 @@
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>Evènements</b>
-                                <a class="float-right">??</a>
+                                {{-- <a class="float-right">{{ App\Models\Event::count() }}</a> --}}
                             </li>
                             <li class="list-group-item">
                                 <b>Participants</b>
-                                <a class="float-right">??</a>
+                                <a class="float-right">{{ App\Models\Participant::count() }}</a>
                             </li>
                         </ul>
 
                         @if ($user->id === auth()->user()->id)
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                <button class="btn btn-danger btn-block">
+
+                                <button class="btn btn-danger btn-block" data-toggle="modal"
+                                data-target="#logout_user">
                                     Se Déconnecter
                                 </button>
-                            </form>
                         @endif
                         {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
                     </div>
@@ -52,11 +51,13 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item">
-                                <a class="nav-link @if(!$isUsersListPage)active @endif" href="#settings" data-toggle="tab">Paramètres</a>
+                                <a class="nav-link @if (!$isUsersListPage) active @endif" href="#settings"
+                                    data-toggle="tab">Paramètres</a>
                             </li>
                             @if ($user->isAdmin())
                                 <li class="nav-item">
-                                    <a class="nav-link @if($isUsersListPage)active @endif" href="#users_list" data-toggle="tab">Utilisateurs</a>
+                                    <a class="nav-link @if ($isUsersListPage) active @endif" href="#users_list"
+                                        data-toggle="tab">Utilisateurs</a>
                                 </li>
                             @endif
                         </ul>
@@ -64,7 +65,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane @if(!$isUsersListPage) active @endif" id="settings">
+                            <div class="tab-pane @if (!$isUsersListPage) active @endif" id="settings">
                                 <form action="{{ route('user.update', $user) }}" method="POST" id="personnal_data"
                                     class="mb-3">
                                     @csrf
@@ -77,7 +78,7 @@
                                             'label' => ['text' => 'Nom'],
                                             'name' => 'name',
                                             'value' => $user->getName(),
-                                        ]" />
+                                        ]" autocomplete required />
 
                                         <x-forms.input :all="[
                                             'group' => ['class' => 'mb-3'],
@@ -85,18 +86,21 @@
                                             'label' => ['text' => 'Téléphone'],
                                             'name' => 'phone',
                                             'value' => $user->phone,
-                                        ]" />
+                                        ]" autocomplete required />
 
-                                        <x-forms.select :all="[
-                                            'group' => ['class' => 'mb-3'],
-                                            'grid' => ['col-sm-2 col-form-label', 'col-sm-10'],
-                                            'label' => ['text' => 'Rôle'],
-                                            'name' => 'role',
-                                            'options' => ['admin' => 'Administrateur', 'user' => 'Utilisateur'],
-                                            'optionsParameters' => [
-                                                'selected_with_key' => $user->role,
-                                            ],
-                                        ]" />
+                                        @if (auth()->user()->isAdmin())
+                                            <x-forms.select :all="[
+                                                'group' => ['class' => 'mb-3'],
+                                                'grid' => ['col-sm-2 col-form-label', 'col-sm-10'],
+                                                'label' => ['text' => 'Rôle'],
+                                                'name' => 'role',
+                                                'options' => ['admin' => 'Administrateur', 'user' => 'Utilisateur'],
+                                                'optionsParameters' => [
+                                                    'selected_with_key' => $user->role,
+                                                ],
+                                            ]" />
+                                        @endif
+
                                         <div class="form-group row">
                                             <div class="offset-sm-5 col-sm-7">
                                                 <button type="submit" form="personnal_data" class="btn btn-info">
@@ -164,12 +168,13 @@
                             </div>
                             <!-- /.tab-pane -->
                             @if ($user->isAdmin())
-                                <div class="tab-pane @if($isUsersListPage) active @endif" id="users_list">
+                                <div class="tab-pane @if ($isUsersListPage) active @endif" id="users_list">
                                     <div class="mb-3">
                                         <div class="card-header px-5">
                                             <form id="f_search">
                                                 @csrf
-                                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6  ">
+                                                <div
+                                                    class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6  ">
                                                     <div class="col">
                                                         <x-forms.input :all="[
                                                             'label' => ['text' => 'Nom'],
@@ -188,8 +193,11 @@
                                                         <x-forms.select :all="[
                                                             'label' => ['text' => 'Rôle'],
                                                             'name' => 'f_search_role',
-                                                            'options' => ['admin' => 'Administrateur', 'user' => 'Utilisateur'],
-                                                            'defaultOption' => ['text' => 'Sélectionnée un rôle']
+                                                            'options' => [
+                                                                'admin' => 'Administrateur',
+                                                                'user' => 'Utilisateur',
+                                                            ],
+                                                            'defaultOption' => ['text' => 'Sélectionnée un rôle'],
                                                         ]" />
                                                     </div>
                                                     <div class="col">
@@ -201,7 +209,7 @@
                                                     </div>
 
                                                     <div class="col">
-                                                        <div class="mb-2 text-white">ergfh</div>
+                                                        <div class="mb-2 text-white">-------</div>
                                                         <button type="submit" form="f_search"
                                                             class="btn btn-primary ">{{ __('Rechercher') }}</button>
                                                     </div>
@@ -301,6 +309,3 @@
     </x-modal>
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('dist/js/modalScript.js') }}"></script>
-@endsection
