@@ -23,7 +23,7 @@
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>Evènements</b>
-                                {{-- <a class="float-right">{{ App\Models\Event::count() }}</a> --}}
+                                <a class="float-right">{{ App\Models\Event::count() }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Participants</b>

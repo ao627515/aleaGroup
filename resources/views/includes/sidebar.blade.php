@@ -26,11 +26,11 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link @if (request()->segment(1) === 'event') active @endif">
+                    <a href="{{ route('event.index') }}" class="nav-link @if (request()->segment(1) === 'event') active @endif">
                         <i class="nav-icon fa-solid fa-layer-group"></i>
                         <p>
                             Evènements
-                            <span class="badge badge-info right">6</span>
+                            <span class="badge badge-info right">{{ App\Models\Event::count() }}</span>
                         </p>
                     </a>
                 </li>
@@ -40,7 +40,7 @@
                         <i class="nav-icon fa-solid fa-user-plus"></i>
                         <p>
                             Participants
-                            {{-- <span class="badge badge-info right">{{ App\Models\Participant::count() }}</span> --}}
+                            <span class="badge badge-info right">{{ App\Models\Participant::count() }}</span>
                         </p>
                     </a>
                 </li>

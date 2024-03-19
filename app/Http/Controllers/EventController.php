@@ -15,6 +15,7 @@ class EventController extends Controller
     {
         $data['page_title'] = 'Lstes des évènements';
         $data['header_title'] = 'Listes des évènements';
+        $data['records'] = Event::getRecords(search: true, filter: true, paginate: 15);
 
         return view('events.index', $data);
     }
