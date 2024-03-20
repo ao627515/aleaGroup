@@ -106,7 +106,7 @@
 
     <x-modal id="delete_participant" title="Demande de confirmation">
         <x-slot name="body">
-            Voullez-vous supprimer ce participant ?
+            Voullez-vous supprimé ce participant ?
         </x-slot>
         <x-slot name="footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>

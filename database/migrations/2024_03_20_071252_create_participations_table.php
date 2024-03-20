@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('participations', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
             $table->foreignId('event_id')
                     ->constrained('events','id', 'fk_participations_events')
                     ->cascadeOnDelete()

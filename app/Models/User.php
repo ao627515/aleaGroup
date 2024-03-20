@@ -131,4 +131,8 @@ class User extends Authenticatable
                 $q->whereDate('created_at', request('f_search_created_at'));
             });
     }
+
+    public function participants() {
+        return $this->hasMany(Participant::class, 'user_id', 'id');
+    }
 }

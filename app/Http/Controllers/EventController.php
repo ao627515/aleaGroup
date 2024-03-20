@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Participant;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -57,23 +58,93 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('events.show', $event);
+        if($event->participantCount() < 2){
+            return to_route('event.show.participants', $event);
+        }else{
+            return to_route('event.show.groups', $event);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit(Event $event)
-    // {
-    //     //
-    // }
+    public function groupsPage(Event $event)
+    {
+        $data['event'] = $event;
+        $data['page_title'] = 'AléaGroup - '.$event->getName();
+        $data['header_title'] = $event->getName();
+        return view('events.show.groups', $data);
+    }
+
+    public function participantsPage(Event $event)
+    {
+        $data['event'] = $event;
+        $data['page_title'] = 'AléaGroup - '.$event->getName();;
+        $data['header_title'] = $event->getName();
+        $data['records'] = $event->getParticipantsRecords(search: true);
+        $data['userParticipants'] = $event->createdBy->participants()->orderBy('created_at', 'desc')->get();
+
+        return view('events.show.participants', $data);
+    }
+
+    public function addParticipants(Event $event)
+    {
+        $data = request()->validate([
+            'participants' => ['required', 'array']
+        ], [
+            'participants.required' => 'Veuillez sélectionnée un participant pour l\'importé'
+        ]);
+
+        $event->participants()->sync($data['participants']);
+
+        return to_route('event.show.participants', $event)->with('success', "Participant impoté !");
+    }
+
+    public function expelParticipants(Event $event)
+    {
+        $event->participants()->detach($event->id);
+
+        return to_route('event.show.participants', $event)->with('success', "Participant expulsé !");
+    }
+
+    public function createAndAddParticipant(Event $event){
+        $this->authorize('create', Participant::class);
+
+        $data = request()->validate([
+            'f_create_name' => ['required', 'string', 'max:255'],
+        ], [
+            'f_create_name.required' => 'Veuillez entrer au moins un caractère pour le nom du participant.',
+            'f_create_name.string' => 'Le nom d\'un participant doit être une chaîne de caractères.',
+            'f_create_name.max' => 'Le nom d\'un participant ne doit pas dépasser :max caractères.',
+        ]);
+
+        $p = Participant::create([
+            'name' => strtolower($data['f_create_name']),
+            'user_id' => auth()->user()->id
+        ]);
+
+        $event->participants()->attach($p->id);
+
+        return to_route('event.show.participants', $event)->with('success', "Participant impoté !");
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEventRequest $request, Event $event)
+    public function update( Event $event)
     {
-        //
+        // $this->authorize('update', $event);
+
+        $data = request()->validate([
+            'f_update_event_name' => ['required', 'string', 'max:255']
+        ], [
+            'f_update_event_name.required' => 'Veuillez entrer au moins un caractère pour le nom de l\'évènement.',
+            'f_update_event_name.string' => 'Le nom d\'un évènement doit être une chaîne de caractères.',
+            'f_update_event_name.max' => 'Le nom d\'un évènement ne doit pas dépasser :max caractères.',
+        ]);
+
+        $event->update([
+            'name' => strtolower($data['f_update_event_name'])
+        ]);
+
+        return back()->with('Mise à jours éffectuer !');
     }
 
     /**
@@ -81,6 +152,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return to_route('event.index')->with('success', 'Suppression réussie !');
     }
 }

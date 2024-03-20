@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Event extends Model
 {
@@ -16,13 +18,13 @@ class Event extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function participation(){
+    public function participants(){
         return $this->belongsToMany(Participant::class, 'participations', 'event_id', 'participant_id', 'id', 'id');
     }
 
 
     public function participantCount(){
-        return $this->participation()->count();
+        return $this->participants()->count();
     }
 
     static public function getRecords(bool $search = false, bool $filter = false, int $paginate = 0, string $order = 'desc')
@@ -68,13 +70,56 @@ class Event extends Model
             });
     }
 
+     public function getParticipantsRecords(bool $search = false, bool $filter = false, int $paginate = 0, string $order = 'desc')
+    {
+
+        $query = $this->participants()->orderBy('created_at', $order);
+
+        if ($search) {
+            $query = Event::participantSearch($query);
+        }
+
+        if ($filter) {
+            $query = Event::participantFilter($query);
+        }
+
+        if ($paginate) {
+            return $query->paginate($paginate);
+        }
+
+        return $query->get();
+    }
+
+    static private function participantSearch(BelongsToMany $query)
+    {
+        request()->validate([
+            'search' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        return $query->when(request()->filled('search'), function ($q) {
+            $q->where('name', 'like', '%' . request('search') . '%');
+        });
+    }
+
+    static private function participantFilter(BelongsToMany $query)
+    {
+        request()->validate([
+            'f_filter_created_at' => ["nullable", "date"]
+        ]);
+
+        // filled verifie si un attribut dans la requete est present et non null (est filled ?)
+        return $query->when(request()->filled('f_filter_created_at'), function ($q) {
+                $q->whereDate('created_at', request('f_filter_created_at'));
+            });
+    }
+
     static public function count(){
         return Event::where('user_id', auth()->user()->id)->count();
     }
 
     public function getName()
     {
-        return ucwords($this->name);
+        return Str::ucfirst($this->name);
     }
 
     public function getCreated_at(string $format = 'd-m-Y')
