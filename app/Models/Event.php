@@ -16,6 +16,15 @@ class Event extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function participation(){
+        return $this->belongsToMany(Participant::class, 'participations', 'event_id', 'participant_id', 'id', 'id');
+    }
+
+
+    public function participantCount(){
+        return $this->participation()->count();
+    }
+
     static public function getRecords(bool $search = false, bool $filter = false, int $paginate = 0, string $order = 'desc')
     {
 
