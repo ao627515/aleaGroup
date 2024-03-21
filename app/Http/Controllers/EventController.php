@@ -51,7 +51,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        if($event->participantCount() < 2){
+        if($event->participantsCount() < 2){
             return to_route('event.show.participants', $event);
         }else{
             return to_route('event.show.groups', $event);

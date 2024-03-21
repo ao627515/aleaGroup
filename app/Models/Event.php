@@ -30,8 +30,20 @@ class Event extends Model
         return $this->groups()->count();
     }
 
-    public function participantCount(){
+    public function participantsCount(){
         return $this->participants()->count();
+    }
+
+    public function participantsInGroupsCount(){
+        $count = 0;
+        foreach($this->groups as $group){
+            $count += $group->membersCount();
+        }
+        return $count;
+    }
+
+    public function participantsInNotGroupsCount(){
+        return $this->participantsCount() - $this->participantsInGroupsCount();
     }
 
     static public function getRecords(bool $search = false, bool $filter = false, int $paginate = 0, string $order = 'desc')

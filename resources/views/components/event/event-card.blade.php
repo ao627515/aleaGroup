@@ -9,7 +9,7 @@
                 {{-- <h5 class="card-title mb-3">{{ $event->getName() }}</h5> --}}
                 <h5 class="card-title mb-2 text-dark">{{ \Str::limit($event->getName(),25)  }}</h5>
                 <p class="card-text mb-2 text-dark">
-                    Participant : {{ $event->participantCount() }}
+                    Participant : {{ $event->participantsCount() }}
                 </p>
                 <p class="card-text"><small class="text-muted">Créer le {{ $event->getCreated_at() }}</small></p>
             </div>
