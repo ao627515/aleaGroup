@@ -22,6 +22,13 @@ class Event extends Model
         return $this->belongsToMany(Participant::class, 'participations', 'event_id', 'participant_id', 'id', 'id');
     }
 
+    public function groups(){
+        return $this->hasMany(Group::class, 'event_id', 'id');
+    }
+
+    public function groupsCount(){
+        return $this->groups()->count();
+    }
 
     public function participantCount(){
         return $this->participants()->count();

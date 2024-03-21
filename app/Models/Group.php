@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['number', 'event_id'];
+
+    public function members(){
+        return $this->belongsToMany(Participant::class, 'group_members', 'group_id', 'participant_id', 'id', 'id');
+    }
+
+    public function membersCount(){
+        return count($this->members);
+    }
 }

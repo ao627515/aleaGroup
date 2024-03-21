@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->integer('number', unsigned: true);
+            $table->foreignId('event_id')
+            ->constrained('events','id', 'fk_groups_events')
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

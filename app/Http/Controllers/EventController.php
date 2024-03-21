@@ -22,13 +22,6 @@ class EventController extends Controller
         return view('events.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create()
-    // {
-    //     //
-    // }
 
     /**
      * Store a newly created resource in storage.
@@ -65,22 +58,29 @@ class EventController extends Controller
         }
     }
 
+    private function showVar(array &$data, Event $event){
+        $data['event'] = $event;
+        $data['userParticipants'] = $event->createdBy->participants()->orderBy('created_at', 'desc')->get();
+        $data['participantsRecords'] = $event->getParticipantsRecords(search: true);
+    }
+
     public function groupsPage(Event $event)
     {
-        $data['event'] = $event;
+
         $data['page_title'] = 'AléaGroup - '.$event->getName();
         $data['header_title'] = $event->getName();
+        $data['records'] = $event->groups;
+
+        $this->showVar($data,$event);
         return view('events.show.groups', $data);
     }
 
     public function participantsPage(Event $event)
     {
-        $data['event'] = $event;
         $data['page_title'] = 'AléaGroup - '.$event->getName();;
         $data['header_title'] = $event->getName();
         $data['records'] = $event->getParticipantsRecords(search: true);
-        $data['userParticipants'] = $event->createdBy->participants()->orderBy('created_at', 'desc')->get();
-
+        $this->showVar($data,$event);
         return view('events.show.participants', $data);
     }
 
