@@ -4,6 +4,34 @@
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-5/css/bootstrap.min.css') }}">
 @endsection
 
+@section('scripts')
+    <script src="{{ asset('plugins/bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        const popover1 = new bootstrap.Popover('#group_generate-popover', {
+            title: 'Génération de groupes',
+            container: 'body',
+            content: "<small><ul>On peut generer un groupe par trois(3) methode" +
+                "<li><strong>En fonction du nombre de membres</strong> : groupes = 0 et membres = m , m > 0, cela creera dans la mesure du possible des groupes de m membres.</li>" +
+                "<li><strong>En fonction du nombre de groupes</strong> : groupes = n, n > 1 et membres = 0, cela creera dans la mesure du possible n groupes de sorte a ce que chaque participant ai un groupe.</li>" +
+                "<li><strong>En fonction du nombre de groupes et membres</strong> : groupes = n, n > 1 et membres = m , m > 0, cela creera dans n groupes de m membres Mais tout les participant n'auront pas necessairement un groupe.</li></ul><small>",
+            html: true
+        })
+
+        const popover2 = new bootstrap.Popover('#event_stat-popover', {
+            title: 'Statistique',
+            container: 'body',
+            content: "<small><ul>" +
+                "<li><strong>Nom de l'évènement</strong> : {{ $event->getName() }}</li>" +
+                "<li><strong>Nombre de participants</strong> :{{ $event->participantsCount() }}</li>" +
+                "<li><strong>Nombre de groupes</strong> : {{ $event->groupsCount() }}</li>" +
+                "<li><strong>Nombre de participants ayant un groupe</strong> : {{ $event->participantsInGroupsCount() }}</li>" +
+                "<li><strong>Nombre de participants sans groupe</strong> : {{ $event->participantsInNotGroupsCount() }}</li>" +
+                "</ul></small>",
+            html: true
+        })
+    </script>
+@endsection
+
 @section('content')
     @include('includes.events.content_header')
     <div class="card">
@@ -50,11 +78,10 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="submit" class="btn btn-primary">Générer</button>
                                     <button type="button" class="btn btn-secondary " id="group_generate-popover"
-                                        data-bs-toggle="popover" data-bs-placement="bottom">
+                                        >
                                         <i class="fa-solid fa-circle-info"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary stat-popover" data-bs-toggle="popover"
-                                        data-bs-placement="bottom">Statistique</button>
+                                    <button type="button" class="btn btn-primary" id="event_stat-popover">Statistique</button>
                                 </div>
                             </div>
                         </form>
@@ -104,30 +131,4 @@
 
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('plugins/bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
-    <script>
-        const popover1 = new bootstrap.Popover('#group_generate-popover', {
-            title: 'Génération de groupes',
-            container: 'body',
-            content: "<small><ul>On peut generer un groupe par trois(3) methode" +
-                "<li><strong>En fonction du nombre de membres</strong> : groupes = 0 et membres = m , m > 0, cela creera dans la mesure du possible des groupes de m membres.</li>" +
-                "<li><strong>En fonction du nombre de groupes</strong> : groupes = n, n > 1 et membres = 0, cela creera dans la mesure du possible n groupes de sorte a ce que chaque participant ai un groupe.</li>" +
-                "<li><strong>En fonction du nombre de groupes et membres</strong> : groupes = n, n > 1 et membres = m , m > 0, cela creera dans n groupes de m membres Mais tout les participant n'auront pas necessairement un groupe.</li></ul><small>",
-            html: true
-        })
 
-        const popover2 = new bootstrap.Popover('.stat-popover', {
-            title: 'Statistique',
-            container: 'body',
-            content: "<small><ul>" +
-                "<li><strong>Nom de l'évènement</strong> : {{ $event->getName() }}</li>" +
-                "<li><strong>Nombre de participants</strong> :{{ $event->participantsCount() }}</li>" +
-                "<li><strong>Nombre de groupes</strong> : {{ $event->groupsCount() }}</li>" +
-                "<li><strong>Nombre de participants ayant un groupe</strong> : {{ $event->participantsInGroupsCount() }}</li>" +
-                "<li><strong>Nombre de participants sans groupe</strong> : {{ $event->participantsInNotGroupsCount() }}</li>" +
-                "</ul></small>",
-            html: true
-        })
-    </script>
-@endsection

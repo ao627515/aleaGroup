@@ -45,7 +45,7 @@
         <div class="container-fluid">
             <form action="{{ route('event.participants.add', $event) }}" method="post" id="f_add_participant">
                 @csrf
-                @foreach ($userParticipants as $value)
+                {{-- @foreach ($userParticipants as $value)
                     <x-forms.checkbox :all="[
                         'name' => 'participants[]',
                         'id' => 'participant' . $value->id,
@@ -55,7 +55,22 @@
                         'checked' => $participantsRecords->contains('id', $value->id),
                     ]" />
                     <hr>
-                @endforeach
+                @endforeach --}}
+                @forelse ($userParticipants as $value)
+                    <x-forms.checkbox :all="[
+                        'name' => 'participants[]',
+                        'id' => 'participant' . $value->id,
+                        'label' => ['text' => $value->getName()],
+                        'grid' => ['offset-sm-3 col-sm-9'],
+                        'value' => $value->id,
+                        'checked' => $participantsRecords->contains('id', $value->id),
+                    ]" />
+                    <hr>
+                @empty
+                    <div>
+                        <p class="lead w-100">Aucun participant créer</p>
+                    </div>
+                @endforelse
             </form>
         </div>
     </x-slot>
@@ -88,3 +103,8 @@
         </form>
     </x-slot>
 </x-modal>
+
+
+@section('scripts')
+    <script src="{{ asset('dist/js/header_event_dropdown.js') }}"></script>
+@endsection

@@ -13,7 +13,7 @@ class ParticipantPolicy
      */
     public function viewAny(User $user): bool
     {
-        return auth()->user()->id === $user->id;
+        return true;
     }
 
     /**

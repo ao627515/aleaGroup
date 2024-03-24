@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
+    <link rel="icon" type="image/png" href="{{ asset('dist/img/AdminLTELogo.png') }}" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>aléaGroup | Rejoignez-nous aujourd'hui !</title>
@@ -30,7 +32,7 @@
                     @csrf
                     <div class="mb-3">
                         <div class="input-group mb-1">
-                            <input type="text" name="name" class="form-control" placeholder="Nom complet">
+                            <input type="text" name="name" class="form-control" placeholder="Nom complet" value="{{ old('name') }}" />
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -45,7 +47,7 @@
                     </div>
                     <div class="mb-3">
                         <div class="input-group mb-1">
-                            <input type="text" name="phone" class="form-control" placeholder="Téléphone">
+                            <input type="text" name="phone" class="form-control" placeholder="Téléphone" value="{{ old('phone') }}">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-phone"></span>
@@ -90,7 +92,7 @@
                     <button type="submit" form="register" class="btn btn-primary btn-block">S'inscrire</button>
                 </div>
 
-                <a href="{{ route('login') }}" class="text-center">J'ai dejà un compte</a>
+                <a href="{{ route('login') }}" class="text-center btn btn-outline-primary">J'ai dejà un compte</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->

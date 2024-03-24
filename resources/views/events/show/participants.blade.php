@@ -38,7 +38,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="w-75">Nom</th>
+                        <th class="w-75">Nom ({{ $event->participantsCount() }})</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

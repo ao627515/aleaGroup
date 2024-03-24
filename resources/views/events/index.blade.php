@@ -51,16 +51,19 @@
             </form>
         </div>
         <div class="card body pt-3 px-5">
-            <h2 class="text-center mb-5">Liste des évènements</h2>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-  ">
-                @foreach ($records as $value)
+            <h2 class="text-center mb-3">Liste des évènements</h2>
+            <div class="row row-cols-1 row-cols-sm-2  ">
+                @forelse ($records as $value)
                     <a href="{{ route('event.show', $value) }}">
                         <div class="col">
                             <x-event.event-card :event="$value" />
                         </div>
                     </a>
-                @endforeach
-
+                @empty
+                    <div class="offset-sm-3 w-100">
+                        <p class="w-100 text-center lead">Vide</p>
+                    </div>
+                @endforelse
             </div>
         </div>
         {{-- <div class="card-footer">

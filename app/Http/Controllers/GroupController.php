@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Event;
+use PDO;
 
 class GroupController extends Controller
 {
@@ -28,6 +29,10 @@ class GroupController extends Controller
 
     public function generate(Event $event)
     {
+        if($event->participantsCount() < 2){
+            return back()->withErrors(['groupsGenerateErrors' => 'Veuillez creer au moins 2 participants.']);
+        }
+
         $groupsCount = request('groups', 0);
         $membersCount = request('members', 0);
         $participants = $event->participants()->pluck('participants.id')->toArray();

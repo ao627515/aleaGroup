@@ -245,7 +245,7 @@
                                                     <td class="d-flex justify-content-around">
                                                         <a href="{{ route('user.show', $value) }}"
                                                             class="btn btn-info">{{ __('Voir') }}</a>
-                                                        @if ($value->id === auth()->user()->id)
+                                                        @unless ($value->id === auth()->user()->id)
                                                             <form action="{{ route('user.destroy', $value) }}"
                                                                 method="post" class="form-action">
                                                                 @csrf
@@ -255,7 +255,7 @@
                                                                     Supprimer
                                                                 </button>
                                                             </form>
-                                                        @endif
+                                                        @endunless
                                                     </td>
                                                 </tr>
                                             @empty

@@ -1,16 +1,14 @@
 <div class="card">
     <div class="card-header">
-        <div class="btn-group w-100 py-3 "  >
-            <button class="btn btn-secondary p-2 fw-bold w-50 mr-1" data-toggle="modal" data-target="#update_event" style="font-size: 14px;">Modifier
-                l'évènement</button>
-            <button class="btn btn-secondary p-2 fw-bold w-50 ml-1" data-toggle="modal" data-target="#delete_event" style="font-size: 14px;">Supprimer
-                l'évènement</button>
-        </div>
         <div class="btn-group w-100 py-3 ">
-            <button class="btn btn-secondary p-2 fw-bold w-50  mr-1" data-toggle="modal" data-target="#add_participant" style="font-size: 14px;">Ajouter un
-                participants</button>
-            <button class="btn btn-secondary p-2 fw-bold w-50  ml-1" data-toggle="modal" data-target="#create_participant" style="font-size: 14px;">Creer un
-                participants</button>
+            <button class="btn btn-secondary p-2 fw-bold w-50  mr-1" data-toggle="modal" data-target="#add_participant" style="font-size: 14px;">
+                <i class="fa-solid fa-upload"></i>
+                Importé un participants
+            </button>
+            <button class="btn btn-secondary p-2 fw-bold w-50  ml-1" data-toggle="modal" data-target="#create_participant" style="font-size: 14px;">
+                <i class="fa-solid fa-user-plus"></i>
+                Créer un  participants
+            </button>
         </div>
     </div>
 </div>

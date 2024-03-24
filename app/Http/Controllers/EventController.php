@@ -28,7 +28,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Event::class);
+        $this->authorize('create', Event::class);
 
         $data = request()->validate([
             'f_create_name' => ['required', 'string', 'max:255'],
@@ -51,6 +51,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        $this->authorize('view', $event);
+
         if($event->participantsCount() < 2){
             return to_route('event.show.participants', $event);
         }else{
@@ -66,6 +68,7 @@ class EventController extends Controller
 
     public function groupsPage(Event $event)
     {
+        $this->authorize('view', $event);
 
         $data['page_title'] = 'AléaGroup - '.$event->getName();
         $data['header_title'] = $event->getName();
@@ -77,6 +80,8 @@ class EventController extends Controller
 
     public function participantsPage(Event $event)
     {
+        $this->authorize('view', $event);
+
         $data['page_title'] = 'AléaGroup - '.$event->getName();;
         $data['header_title'] = $event->getName();
         $data['records'] = $event->getParticipantsRecords(search: true);
@@ -86,6 +91,8 @@ class EventController extends Controller
 
     public function addParticipants(Event $event)
     {
+        $this->authorize('addParticipants', $event);
+
         $data = request()->validate([
             'participants' => ['required', 'array']
         ], [
@@ -99,13 +106,15 @@ class EventController extends Controller
 
     public function expelParticipants(Event $event)
     {
+        $this->authorize('expelParticipants', $event);
+
         $event->participants()->detach($event->id);
 
         return to_route('event.show.participants', $event)->with('success', "Participant expulsé !");
     }
 
     public function createAndAddParticipant(Event $event){
-        $this->authorize('create', Participant::class);
+        $this->authorize('createAndAddParticipant', $event);
 
         $data = request()->validate([
             'f_create_name' => ['required', 'string', 'max:255'],
@@ -130,7 +139,7 @@ class EventController extends Controller
      */
     public function update( Event $event)
     {
-        // $this->authorize('update', $event);
+        $this->authorize('update', $event);
 
         $data = request()->validate([
             'f_update_event_name' => ['required', 'string', 'max:255']
@@ -152,6 +161,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        $this->authorize('delete', $event);
+
         $event->delete();
 
         return to_route('event.index')->with('success', 'Suppression réussie !');

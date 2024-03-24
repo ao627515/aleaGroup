@@ -2,6 +2,8 @@
 <html lang="fr">
 
 <head>
+    <link rel="icon" type="image/png" href="{{ asset('dist/img/AdminLTELogo.png') }}" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>aléaGroup | Connecte-toi, c'est parti !</title>
@@ -31,7 +33,8 @@
                     @csrf
                     <div class="mb-3">
                         <div class="input-group mb-1">
-                            <input type="text" name="phone" class="form-control" placeholder="Téléphone">
+                            <input type="text" name="phone" class="form-control" placeholder="Téléphone"
+                                value="{{ old('phone') }}" autocomplete />
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-phone"></span>
@@ -78,12 +81,18 @@
                 </div>
                 <!-- /.social-auth-links -->
 
-                <p class="mb-1">
-                    <a href="#">Mot de passe oublié ?</a>
-                </p>
-                <p class="mb-0">
-                    <a href="{{ route('register') }}" class="text-center">S'incrire</a>
-                </p>
+                <div class="d-flex justify-content-between">
+
+                    <p class="mb-1">
+                        <button type="button" class="btn btn-outline-primary" data-toggle="tooltip"
+                            data-placement="top" title="Veuillez vous référer à l'administrateur.">
+                            Mot de passe oublié ?
+                        </button>
+                    </p>
+                    <p class="mb-0">
+                        <a href="{{ route('register') }}" class="text-center btn btn-outline-primary">S'incrire</a>
+                    </p>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>
@@ -96,6 +105,12 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
+
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 </body>
 
