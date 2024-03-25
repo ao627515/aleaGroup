@@ -2,7 +2,6 @@
 
 @php
     $data['page_title'] = '503';
-    $data['header_title'] = '503';
 @endphp
 
 @section('content')

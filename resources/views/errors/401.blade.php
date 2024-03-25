@@ -1,11 +1,10 @@
 @extends('layouts.guest')
 
-@php
-    $data['page_title'] = '401';
-    $data['header_title'] = '401';
-@endphp
 
 @section('content')
+    @php
+        $page_title = '401';
+    @endphp
     <div class="error-page">
         <h2 class="headline text-warning"> 401</h2>
 
