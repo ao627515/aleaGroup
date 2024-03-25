@@ -17,8 +17,8 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        $data['page_title'] = 'AléaGroup - Profile';
-        $data['header_title'] = '';
+        $data['page_title'] = 'Profile';
+        $data['header_title'] = 'Profile';
         $data['user'] = $user;
         $data['records'] = User::getRecords(search: true, filter: true, paginate: 15);
         $data['isUsersListPage'] = request()->has('f_search_name');

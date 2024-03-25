@@ -14,8 +14,8 @@ class ParticipantController extends Controller
     {
         $this->authorize('viewAny', Participant::class);
 
-        $data['page_title'] = 'AléaGroup - Participants';
-        $data['header_title'] = '';
+        $data['page_title'] = 'Gestion des participants';
+        $data['header_title'] = 'Gestion des participants';
         $data['records'] = Participant::getRecords(search: true, filter: true, paginate: 15);
 
         return view('participants.index', $data);

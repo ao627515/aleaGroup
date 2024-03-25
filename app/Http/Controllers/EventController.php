@@ -70,7 +70,7 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        $data['page_title'] = 'AléaGroup - '.$event->getName();
+        $data['page_title'] = $event->getName();
         $data['header_title'] = $event->getName();
         $data['records'] = $event->groups;
 
@@ -82,7 +82,7 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        $data['page_title'] = 'AléaGroup - '.$event->getName();;
+        $data['page_title'] = $event->getName();;
         $data['header_title'] = $event->getName();
         $data['records'] = $event->getParticipantsRecords(search: true);
         $this->showVar($data,$event);

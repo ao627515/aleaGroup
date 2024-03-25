@@ -17,18 +17,18 @@ use App\Http\Controllers\ParticipantController;
 |
 */
 
-Route::fallback(function () {
-    return view('errors.404');
-});
-
 require __DIR__.'/auth.php';
 
-Route::get('/', function () {
-    return to_route('login');
-});
-
-
 Route::group(["middleware" => "auth"], function () {
+
+    Route::get('/', function () {
+        return to_route('event.index');
+    });
+
+    Route::fallback(function () {
+        return view('errors.404');
+    });
+
     Route::resource('user', UserController::class)->except(['index', 'create', 'store', 'edit']);
     Route::delete('destroy-account', [UserController::class, 'destroyAccount'])->name('user.destroyAccount');
 

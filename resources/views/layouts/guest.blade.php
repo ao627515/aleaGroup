@@ -21,23 +21,12 @@
     @yield('styles')
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
+<body class="hold-transition layout-top-nav">
     <!-- Site wrapper -->
     <div class="wrapper">
-        <!-- Navbar -->
-        @include('includes.header')
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
-        @include('includes.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div class="px-5 mt-3">
-                <x-msg-alert/>
-            </div>
-            <!-- Content Header (Page header) -->
-            {{-- @include('includes.content_header') --}}
 
             <!-- Main content -->
             <section class="content">
@@ -51,22 +40,6 @@
 
     </div>
     <!-- ./wrapper -->
-
-    {{-- modal --}}
-    <x-modal id="logout_user" title="Demande de confirmation">
-        <x-slot name="body">
-            Voullez-vous vous déconnectée ?
-        </x-slot>
-        <x-slot name="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button class="btn btn-danger btn-block btn-primary confirmModal">
-                    Oui
-                </button>
-            </form>
-        </x-slot>
-    </x-modal>
 
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

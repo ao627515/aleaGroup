@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @php
-        $data['page_title'] = '404';
-        $data['header_title'] = '404';
+    $data['page_title'] = '404';
+    $data['header_title'] = '404';
 @endphp
 
 @section('content')
@@ -10,27 +10,24 @@
         <h2 class="headline text-warning"> 404</h2>
 
         <div class="error-content">
-            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oups ! Page non trouvée.</h3>
 
             <p>
-                We could not find the page you were looking for.
-                Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the
-                search form.
+                Nous n'avons pas trouvé la page que vous recherchiez.
+                En attendant, vous pouvez <a href="{{ route('event.index') }}">retourner la page d'accueil</a> ou essayer
+                d'utiliser
+                le formulaire de recherche.
             </p>
-
-            <form class="search-form">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search">
-
-                    <div class="input-group-append">
-                        <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                <!-- /.input-group -->
-            </form>
         </div>
         <!-- /.error-content -->
+        <div class="mb-3">
+            <a href="{{ url()->previous() }}" class="btn btn-primary m-auto d-block">Page précédente</a>
+        </div>
+        <div>
+            @if (auth()->check())
+                <a href="{{ route('event.index') }}" class="btn btn-primary m-auto d-block">Page d'accueil</a>
+            @endif
+        </div>
     </div>
     <!-- /.error-page -->
 @endsection
